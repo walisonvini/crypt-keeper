@@ -131,3 +131,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRYPTOGRAPHY_KEY = b'PmIJ9VS5ikwe0YFCced8rqQzU0UBeKn4shkyxXL_PJU='
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
