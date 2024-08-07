@@ -1,0 +1,63 @@
+
+{% extends 'layouts/base-auth.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/auth/register.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="register-container">
+        <div class="form-register">
+            <div class="welcome">
+                <h2>Sign Up</h2>
+                <p>Welcome! Create your account</p>
+            </div>
+
+            <form action="">
+                <div class="between">
+                    <div class="form-input">
+                        <label for="email">Email <span>(required)</span></label>
+                        <input class="input" type="email" name="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-input">
+                        <label for="name">Name <span>(required)</span></label>
+                        <input class="input" type="text" name="name" id="name" placeholder="What should we call you?">
+                    </div>
+                </div>
+                <div class="form-input">
+                    <label for="password">Password <span>(required)</span></label>
+                    <div class="input-container">
+                        <input class="input" type="password" name="password" id="password" placeholder="• • • • • • •">
+                        <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
+                    </div>
+                </div>
+                <div class="form-input">
+                    <label for="retype-password">Re-type password <span>(required)</span></label>
+                    <div class="input-container">
+                        <input class="input" type="retype-password" name="retype-password" id="retype-password" placeholder="• • • • • • •">
+                        <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
+                    </div>
+                </div>
+                <div class="form-input">
+                    <label for="password-hint">Password hint</label>
+                    <input class="input" type="text" name="password-hint" id="password-hint" placeholder="">
+                </div>
+
+                <div class="button-container">
+                    <button class="btn" type="submit">Sing In</button>
+                </div>
+            </form>
+
+            <div class="signup">
+                <label>Already have an account? </label><a href="{% url 'login' %}">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

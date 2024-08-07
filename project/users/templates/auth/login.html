@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{% static 'js/auth/login.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="login-container">
         <div class="form-login">
@@ -17,32 +21,33 @@
             <form action="">
                 <div class="form-input">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email">
+                    <input class="input" type="email" name="email" id="email" placeholder="Enter your email">
                 </div>
                 <div class="form-input">
                     <label for="password">Password</label>
                     <div class="input-container">
-                        <input type="password" name="password" id="password" placeholder="• • • • • • •">
+                        <input class="input" type="password" name="password" id="password" placeholder="• • • • • • •">
                         <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
                     </div>
                 </div>
 
                 <div class="remember">
                     <div>
-                        <input type="checkbox" name="remember" id="remember">
+                        <input class="checkbox" type="checkbox" name="remember" id="remember">
                         <label for="remember">Remember me</label>
                     </div>
                     <a href="">Forgot password?</a>
                 </div>
 
                 <div class="button-container">
-                    <button type="submit">Sing In</button>
+                    <button class="btn" type="submit">Sing In</button>
                 </div>
             </form>
 
             <div class="signup">
-                <label>Don't have an account? </label><a href="">Sign up</a>
+                <label>Don't have an account? </label><a href="{% url 'register' %}">Sign up</a>
             </div>
         </div>
     </div>
+
 {% endblock %}

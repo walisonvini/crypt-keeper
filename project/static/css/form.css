@@ -1,0 +1,36 @@
+/* input */
+.input {
+    padding: 16px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.input::placeholder {
+    color: var(--tertiary-color);
+}
+
+/* button */
+.btn {
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* checkbox */
+.checkbox {
+    border-radius: 0.5px;
+    opacity: 0.5;
+}
+
+.checkbox:checked {
+    opacity: 1;
+}
