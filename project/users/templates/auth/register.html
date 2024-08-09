@@ -19,7 +19,14 @@
                 <p>Welcome! Create your account</p>
             </div>
 
-            <form action="">
+            {% for field_errors in form.errors.values %}
+                        {% for error in field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+            
+            <form action=""  method="POST">
+                {% csrf_token %}
                 <div class="between">
                     <div class="form-input">
                         <label for="email">Email <span>(required)</span></label>
@@ -31,22 +38,23 @@
                     </div>
                 </div>
                 <div class="form-input">
-                    <label for="password">Password <span>(required)</span></label>
+                    <label for="password1">Password <span>(required)</span></label>
                     <div class="input-container">
-                        <input class="input" type="password" name="password" id="password" placeholder="• • • • • • •">
+                        <input class="input" type="password" name="password1" id="password1" placeholder="• • • • • • •">
                         <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
                     </div>
                 </div>
                 <div class="form-input">
-                    <label for="retype-password">Re-type password <span>(required)</span></label>
+                    <label for="password2">Re-type password <span>(required)</span></label>
                     <div class="input-container">
-                        <input class="input" type="retype-password" name="retype-password" id="retype-password" placeholder="• • • • • • •">
+                        <input class="input" type="password" name="password2" id="password2" placeholder="• • • • • • •">
                         <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
                     </div>
                 </div>
                 <div class="form-input">
-                    <label for="password-hint">Password hint</label>
-                    <input class="input" type="text" name="password-hint" id="password-hint" placeholder="">
+                    <label for="password_hit">Password hint</label>
+                    <input class="input" type="text" name="password_hit" id="password_hit" placeholder="">
+                    <span>A master password hint can help you remember your password if you forget it.</span>
                 </div>
 
                 <div class="button-container">

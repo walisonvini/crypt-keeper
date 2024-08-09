@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleIcon[0].setAttribute('src', iconSrc);
     });
 
-    const confirmPasswordInput = document.getElementById('retype-password');
+    const confirmPasswordInput = document.getElementById('password2');
 
     toggleIcon[1].addEventListener('click', function () {
         const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';

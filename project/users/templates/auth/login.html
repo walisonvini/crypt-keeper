@@ -17,11 +17,12 @@
                 <h2>Sign In</h2>
                 <p>Welcome back! Please enter your detalls</p>
             </div>
-
-            <form action="">
+            
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
                 <div class="form-input">
-                    <label for="email">Email</label>
-                    <input class="input" type="email" name="email" id="email" placeholder="Enter your email">
+                    <label for="username">Email</label>
+                    <input class="input" type="email" name="username" id="username" placeholder="Enter your email">
                 </div>
                 <div class="form-input">
                     <label for="password">Password</label>
@@ -29,14 +30,6 @@
                         <input class="input" type="password" name="password" id="password" placeholder="• • • • • • •">
                         <img src="{% static 'icons/eye-off.svg' %}" alt="Toggle visibility" class="icon">
                     </div>
-                </div>
-
-                <div class="remember">
-                    <div>
-                        <input class="checkbox" type="checkbox" name="remember" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="">Forgot password?</a>
                 </div>
 
                 <div class="button-container">

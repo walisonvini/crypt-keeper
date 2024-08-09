@@ -40,6 +40,12 @@
     color: #333;
 }
 
+.form-input span {
+    font-size: 14px;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
 .input-container {
     position: relative;	
     display: flex;
@@ -77,6 +83,8 @@
 }
 
 .signup a {
+    color: #333;
+    text-decoration: none !important;
     font-weight: bold;
 }
 
