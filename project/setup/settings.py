@@ -135,3 +135,6 @@ CRYPTOGRAPHY_KEY = b'PmIJ9VS5ikwe0YFCced8rqQzU0UBeKn4shkyxXL_PJU='
 AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
+
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/vaults/'

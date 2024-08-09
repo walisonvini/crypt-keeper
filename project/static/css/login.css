@@ -77,5 +77,14 @@
 }
 
 .signup a {
+    color: #333;
+    text-decoration: none;
     font-weight: bold;
+}
+
+.is-invalid {
+    border-color: red;
+}
+.has-error input {
+    border-color: red;
 }

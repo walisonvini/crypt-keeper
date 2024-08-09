@@ -7,6 +7,7 @@ from .forms import LoginForm, RegisterForm
 class LoginView(auth_views.LoginView):
     form_class = LoginForm
     template_name = 'auth/login.html'
+    success_url = reverse_lazy('index')
 
 class RegisterView(generic.CreateView):
     form_class = RegisterForm

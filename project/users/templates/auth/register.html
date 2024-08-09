@@ -18,12 +18,6 @@
                 <h2>Sign Up</h2>
                 <p>Welcome! Create your account</p>
             </div>
-
-            {% for field_errors in form.errors.values %}
-                        {% for error in field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
             
             <form action=""  method="POST">
                 {% csrf_token %}

@@ -1,0 +1,31 @@
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+}
+
+.container-sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+
+    text-align: start;
+}
+
+.container-sidebar a {
+    display: block;
+    padding: 10px 0;
+    color: black;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 25px;
+
+    background-color: var(--primary-color);
+}
