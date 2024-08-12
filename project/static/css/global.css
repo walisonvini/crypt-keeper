@@ -17,3 +17,7 @@ body {
     --secondary-color: #0077cc;
     --tertiary-color: #ccc;
 }
+
+.bg-white {
+    background-color: white;
+}

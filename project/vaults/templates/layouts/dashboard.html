@@ -12,18 +12,39 @@
 <body
     <div class="layout">
         <div class="container-sidebar">
+            <div class="sidebar-logo">
+                Cryptkepper
+            </div>
+            <a href="{% url 'index' %}" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">
+                <img src="{% static 'icons/vault.svg' %}" alt="">
+                <span>Vault</span>
+            </a>
             <a href="#">
                 <img src="{% static 'icons/eye.svg' %}" alt="">
-                Vault
+                <span>Vault</span>
             </a>
-            <a href="#">Vault</a>
-            <a href="#">Vault</a>
-            <a href="#">Vault</a>
+            <a href="#">
+                <img src="{% static 'icons/eye.svg' %}" alt="">
+                <span>Vault</span>
+            </a>
+            <a href="#">
+                <img src="{% static 'icons/eye.svg' %}" alt="">
+                <span>Vault</span>
+            </a>
         </div>
-        <div class="content">
-            {% block content %}
-            <!-- Conteúdo principal -->
-            {% endblock %}
+        <div class="app">
+            <header class="navbar bg-white">
+                <div class="profile">
+                    <div class="avatar">
+                        WA
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+                {% block content %}
+                    <!-- Conteúdo principal -->
+                {% endblock %}
+            </div>
         </div>
     </div>
     {% block extra_js %}{% endblock %}
