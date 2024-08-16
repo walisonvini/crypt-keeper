@@ -25,6 +25,10 @@
     cursor: pointer;
 }
 
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
 /* checkbox */
 .checkbox {
     border-radius: 0.5px;

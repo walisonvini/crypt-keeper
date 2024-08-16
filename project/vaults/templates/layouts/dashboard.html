@@ -15,21 +15,17 @@
             <div class="sidebar-logo">
                 Cryptkepper
             </div>
-            <a href="{% url 'index' %}" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">
+            <a href="{% url 'vault' %}" class="{% if request.resolver_match.view_name == 'vault' %}active{% endif %}">
                 <img src="{% static 'icons/vault.svg' %}" alt="">
                 <span>Vault</span>
             </a>
             <a href="#">
-                <img src="{% static 'icons/eye.svg' %}" alt="">
-                <span>Vault</span>
+                <img src="{% static 'icons/password-setting.svg' %}" alt="">
+                <span>Password Setting</span>
             </a>
             <a href="#">
-                <img src="{% static 'icons/eye.svg' %}" alt="">
-                <span>Vault</span>
-            </a>
-            <a href="#">
-                <img src="{% static 'icons/eye.svg' %}" alt="">
-                <span>Vault</span>
+                <img src="{% static 'icons/folders.svg' %}" alt="">
+                <span>Folders</span>
             </a>
         </div>
         <div class="app">
