@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-ndaf_#r=+wl_gqc_j^v7lwkdw_447&^9$zg6q*266%18rmm(1#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'crypt-keeper-production.up.railway.app'
+]
 
 
 # Application definition
