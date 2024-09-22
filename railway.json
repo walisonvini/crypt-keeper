@@ -4,6 +4,6 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "python project/manage.py migrate && python project/manage.py collectstatic --noinput && gunicorn setup.wsgi"
+        "startCommand": "python project/manage.py migrate && python project/manage.py collectstatic --noinput && gunicorn project.setup.wsgi"
     }
 }
