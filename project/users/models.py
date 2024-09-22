@@ -3,7 +3,7 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=150, default='Anonymous')
+    name = models.CharField(max_length=150)
     password_hit = models.CharField(max_length=150, blank=True, null=True)
 
     first_name = None 
