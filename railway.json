@@ -1,0 +1,11 @@
+{
+    "build": {
+      "builder": "python",
+      "command": "pip install -r requirements.txt && python manage.py collectstatic --noinput",
+      "output": "projects/your_django_project"
+    },
+    "start": {
+      "command": "python projects/your_django_project/manage.py runserver 0.0.0.0:$PORT"
+    }
+  }
+  
