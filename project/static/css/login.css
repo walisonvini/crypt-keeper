@@ -40,6 +40,12 @@
     color: #333;
 }
 
+.form-input span {
+    font-size: 12px;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
 .input-container {
     position: relative;	
     display: flex;
@@ -82,9 +88,9 @@
     font-weight: bold;
 }
 
-.is-invalid {
-    border-color: red;
-}
-.has-error input {
-    border-color: red;
+.error {
+    margin-top: 5px !important;
+    font-size: 12px;
+
+    color: #EF665B;
 }

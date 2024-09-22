@@ -38,3 +38,54 @@
 .checkbox:checked {
     opacity: 1;
 }
+
+/* error */
+.input-error {
+    border: 2px solid #EF665B;
+}
+
+.input-error:focus {
+    border-color: #EF665B;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */ 
+.alert-error {
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    background: #EF665B;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+    position: absolute ;
+    margin: 10px;
+    right: 0;
+}
+
+.alert-icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 28px;
+}
+
+.alert-icon path {
+    fill: #fff;
+}
+
+.alert-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+}
+
+.alert-close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.alert-close path {
+fill: #fff;
+}

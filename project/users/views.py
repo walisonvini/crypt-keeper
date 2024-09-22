@@ -1,13 +1,17 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView
 from django.views import generic
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 from .forms import LoginForm, RegisterForm
 
-class LoginView(auth_views.LoginView):
+class LoginView(LoginView):
     form_class = LoginForm
     template_name = 'auth/login.html'
-    success_url = reverse_lazy('vault')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
 
 class RegisterView(generic.CreateView):
     form_class = RegisterForm
