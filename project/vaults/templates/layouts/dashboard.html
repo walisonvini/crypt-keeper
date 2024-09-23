@@ -15,17 +15,24 @@
             <div class="sidebar-logo">
                 Cryptkepper
             </div>
-            <a href="{% url 'vault' %}" class="{% if request.resolver_match.view_name == 'vault' %}active{% endif %}">
-                <img src="{% static 'icons/vault.svg' %}" alt="">
-                <span>Vault</span>
-            </a>
+            <div class="menu-item">
+                <a class="menu-toggle {% if request.resolver_match.view_name == 'vault' %}active{% endif %}">
+                    <img src="{% static 'icons/vault.svg' %}" alt="">
+                    <span class="page-name">Vaults <img src="{% static 'icons/arrow.svg' %}" class="arrow-icon" alt=""></span>
+                </a>
+                <ul class="submenu">
+                    <li><a href="#">My Vult</a></li>
+                    <li><a href="#">IronKey</a></li>
+                    <li><a href="#">Trust Guard</a></li>
+                </ul>
+            </div>            
             <a href="#">
                 <img src="{% static 'icons/password-setting.svg' %}" alt="">
-                <span>Password Setting</span>
+                <span class="page-name">Password Setting</span>
             </a>
             <a href="#">
                 <img src="{% static 'icons/folders.svg' %}" alt="">
-                <span>Folders</span>
+                <span class="page-name">Folders</span>
             </a>
         </div>
         <div class="app">
@@ -38,11 +45,12 @@
             </header>
             <div class="content">
                 {% block content %}
-                    <!-- Conteúdo principal -->
+                
                 {% endblock %}
             </div>
         </div>
     </div>
+    <script src="{% static 'js/dashboard.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
