@@ -12,3 +12,6 @@ media
 .venv
 
 .vscode
+
+.env
+

@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from dotenv import load_dotenv
 from pathlib import Path
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,11 +92,11 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'IjHIiubgJMkArQlhWVqNIwOWYxZrTyIl',
-        'HOST': 'autorack.proxy.rlwy.net',
-        'PORT': '56397'
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -144,7 +147,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRYPTOGRAPHY_KEY = b'PmIJ9VS5ikwe0YFCced8rqQzU0UBeKn4shkyxXL_PJU='
+CRYPTOGRAPHY_KEY = bytes(os.getenv('CRYPTOGRAPHY_KEY'), 'utf-8')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
