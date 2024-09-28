@@ -93,3 +93,58 @@
     background-color: blueviolet;
     color: white;
 }
+
+.menu-item {
+    position: relative;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu-item a img {
+    margin-right: 8px;
+}
+
+.page-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+}
+
+.page-name img.arrow-icon {
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+    width: 20px;
+    height: 20px;
+}
+
+.menu-item ul.submenu {
+    display: none;
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+    z-index: 1000;
+}
+
+.menu-item ul.submenu li {
+    position: relative;
+}
+
+.submenu a {
+    font-size: 12px;
+    padding: 2px 18px;
+}
+
+.submenu a:hover {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
