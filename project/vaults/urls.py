@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.vault_view, name='vault'),
+    path('vault', views.vault_view, name='vault'),
+    path('vault/<int:vault_id>', views.vault_view, name='vault'),
 ]

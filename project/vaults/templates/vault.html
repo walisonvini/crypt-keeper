@@ -7,18 +7,64 @@
 {% endblock %}
 
 {% block extra_js %}
-    
+    <script src="{% static 'js/dashboard/vault.js' %}"></script>
+    <script src="{% static 'js/dashboard/modal.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
-    <h1>Vault</h1>
+    <h1 class="between">
+        {{ vault.name }} 
+        <button onclick="openModal('modal-create-credential')" class="btn">New item</button>
+    </h1>
 
     <div class="vault-menu">
-        <button class="btn">New item</button>
+        
     </div>
 
     <table>
         
     </table>
+
+    <div id="modal-create-credential" class="modal-window">
+        <div class="modal-content">
+            <a href="#" title="Close" class="modal-close" onclick="closeModal('modal-create-credential')"></a>
+            <h3>Create credential</h3>
+
+            <div>
+                <div class="between">
+                    <div class="form-input">
+                        <label for="name">Name <span>(required)</span></label>
+                        <input class="input {% if form.name.errors %}input-error{% endif %}" 
+                                type="text" name="name" id="name" 
+                                placeholder="What should we call you?" value="{{ form.name.value|default:'' }}">
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-input">
+                        <label for="vault">Vault</label>
+                        <select class="select">
+                            <option value="{{ vault.id }}">{{ vault.name }}</option>
+                            {% for vault_select in vaults %}
+                                {% if vault_select.id != vault.id %}
+                                    <option value="{{ vault_select.id }}">{{ vault_select.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+     
+            <hr class="modal-line">
+
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('modal-create-credential')">Cancel</button>
+                <button class="btn-save">Save</button>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}

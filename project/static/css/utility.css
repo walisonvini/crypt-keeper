@@ -1,0 +1,25 @@
+.between {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* form */
+.form-input {
+    margin-top: 24px;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input label {
+    font-size: 14px;
+    margin-bottom: 8px;
+
+    color: #333;
+}
+
+.form-input span {
+    font-size: 14px;
+    opacity: 0.5;
+    margin-top: 5px;
+}

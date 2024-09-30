@@ -4,3 +4,18 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
+.select {
+    width: 200px;
+}
+
+
+@media screen and (max-width: 540px) {
+    .between {
+        flex-direction: column;
+    }
+
+    .select {
+        width: 100%;
+    }
+}

@@ -1,4 +1,6 @@
 @import "form.css";
+@import "utility.css";
+@import "modal.css";
 
 * {
     padding: 0;

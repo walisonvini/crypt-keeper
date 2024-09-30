@@ -9,7 +9,7 @@
     <title>{% block title %}Vaults | Cryptkeeper{% endblock %}</title>
     {% block extra_head %}{% endblock %}
 </head>
-<body
+<body>
     <div class="layout">
         <div class="container-sidebar">
             <div class="sidebar-logo">
@@ -21,9 +21,11 @@
                     <span class="page-name">Vaults <img src="{% static 'icons/arrow.svg' %}" class="arrow-icon" alt=""></span>
                 </a>
                 <ul class="submenu">
-                    <li><a href="#">My Vult</a></li>
-                    <li><a href="#">IronKey</a></li>
-                    <li><a href="#">Trust Guard</a></li>
+                    {% for vault in vaults %}
+                        <li>
+                            <a href="{% url 'vault' vault.id %}">{{ vault.name }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>            
             <a href="#">
@@ -50,7 +52,7 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/dashboard/dashboard.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

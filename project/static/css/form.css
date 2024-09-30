@@ -87,5 +87,27 @@
 }
 
 .alert-close path {
-fill: #fff;
+    fill: #fff;
+}
+
+.select {
+    padding: 16px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* estilizar os options */
+.select option {
+    padding: 16px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
 }
