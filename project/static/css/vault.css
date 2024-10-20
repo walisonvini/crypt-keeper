@@ -9,6 +9,40 @@
     width: 200px;
 }
 
+.form-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.input-btn {
+    padding: 0 15px;  /* Ajustado para acomodar ícones */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-left: none;
+    font-size: 1.2em; /* Tamanho do ícone */
+}
+
+.input-btn:first-of-type {
+    border-radius: 0 4px 4px 0;
+}
+
+.input-btn:last-of-type {
+    border-radius: 0 4px 4px 0;
+}
+
+.input-btn:hover {
+    background-color: #e0e0e0;
+}
+
 
 @media screen and (max-width: 540px) {
     .between {

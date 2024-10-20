@@ -23,3 +23,7 @@
     opacity: 0.5;
     margin-top: 5px;
 }
+
+.gap {
+    gap: 20px;
+}

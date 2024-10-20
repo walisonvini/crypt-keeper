@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views.vault import VaultView
+from .views.credential import CredentialView
 
 urlpatterns = [
-    path('vault', views.vault_view, name='vault'),
-    path('vault/<int:vault_id>', views.vault_view, name='vault'),
+    path('vault', VaultView.as_view(), name='vault'),
+    path('vault/<int:vault_id>', VaultView.as_view(), name='vault'),
+    path('credential', CredentialView.as_view(), name='credential'),
 ]
