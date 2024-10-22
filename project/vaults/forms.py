@@ -10,6 +10,4 @@ class VaultForm(forms.ModelForm):
 class CredentialForm(forms.ModelForm):
     class Meta:
         model = Credential
-        fields = ['name', 'username', 'password', 'description', 'url', 'vault', 'user']
-
-    
+        fields = ['name', 'username', 'password', 'description', 'vault', 'url']

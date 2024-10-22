@@ -154,4 +154,4 @@ AUTH_USER_MODEL = 'users.CustomUser'
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
 
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/vaults/'
+LOGIN_REDIRECT_URL = '/vaults/vault'

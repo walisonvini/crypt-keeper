@@ -7,8 +7,10 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script src="{% static 'js/getCookie.js' %}"></script>
     <script src="{% static 'js/dashboard/vault.js' %}"></script>
     <script src="{% static 'js/dashboard/modal.js' %}"></script>
+    <script src="{% static 'js/dashboard/credential.js' %}"></script>
 {% endblock %}
 
 
@@ -41,72 +43,64 @@
             <a href="#" title="Close" class="modal-close" onclick="closeModal('modal-create-credential')"></a>
             <h3>Create credential</h3>
             
-            <form action="{% url 'credential' %}" method="POST" autocomplete="off">
+            <form id="createCredentialForm" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <div>
                     <div>
                         <div class="form-input">
                             <label for="name">Name <span>(required)</span></label>
-                            <input class="input {% if form.name.errors %}input-error{% endif %}" 
-                                    type="text" name="name" id="name" 
-                                    placeholder="Enter the name of your vault" value="{{ form.name.value|default:'' }}">
-                            {% if form.name.errors %}
-                                {% for error in form.name.errors %}
-                                    <div class="error">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
+                            <input class="input" type="text" name="name" id="name">
+                            <div class="error" id="nameError"></div>
                         </div>
                     </div>
-
+            
                     <div class="between gap">
                         <div class="form-input">
-                            <label for="usernmae">Username <span>(required)</span></label>
-                            <input class="input {% if form.username.errors %}input-error{% endif %}" 
-                                    type="text" name="username" id="username" 
-                                    placeholder="Enter the name of your vault" value="{{ form.username.value|default:'' }}">
-                            {% if form.username.errors %}
-                                {% for error in form.username.errors %}
-                                    <div class="error">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
+                            <label for="username">Username <span>(required)</span></label>
+                            <input class="input" type="text" name="username" id="username">
+                            <div class="error" id="usernameError"></div>
                         </div>
                         <div class="form-input">
                             <div class="between">
                                 <label for="password">Password <span>(required)</span></label>
-                                <a onclick="randomPassword(12, 'password')" style="cursor: pointer;"><img src="{% static 'icons/refresh.svg' %}"></a>
+                                <a onclick="randomPassword(12, 'password')" style="cursor: pointer;">
+                                    <img src="/static/icons/refresh.svg">
+                                </a>
                             </div>
                             <div class="input-group">
-                                <input class="input {% if form.password.errors %}input-error{% endif %}" 
-                                        type="password" name="password" id="password" 
-                                        placeholder="Enter the name of your vault" value="{{ form.password.value|default:'' }}"
-                                        style="border-radius: 8px 0px 0px 8px;">
-
-                                <button onclick="seePassword('togglePassword', 'password')" type="button" class="input-btn"><img src="{% static 'icons/eye.svg' %}" id="togglePassword"></button>
-                                <button onclick="copyInput('password', 'Text copied successfully!')" type="button" class="input-btn"><img src="{% static 'icons/copy.svg' %}"></button>
+                                <input class="input" type="password" name="password" id="password" style="border-radius: 8px 0px 0px 8px;">
+                                <button onclick="seePassword('togglePassword', 'password')" type="button" class="input-btn" style="border-radius: 0px 0px 0px 0px;">
+                                    <img src="/static/icons/eye.svg" id="togglePassword">
+                                </button>
+                                <button onclick="copyInput('password', 'Text copied successfully!')" type="button" class="input-btn">
+                                    <img src="/static/icons/copy.svg">
+                                </button>
                             </div>
-
-
-                            {% if form.password.errors %}
-                                {% for error in form.password.errors %}
-                                    <div class="error">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
+                            <div class="error" id="passwordError"></div>
                         </div>
                     </div>
-
+            
+                    <div>
+                        <div class="form-input">
+                            <label for="url">Url</label>
+                            <input class="input" type="text" name="url" id="url" placeholder="ex. https://google.com">
+                            <div class="error" id="urlError"></div>
+                        </div>
+                    </div>
+            
                     <div>
                         <div class="form-input">
                             <label for="description">Description</label>
-                            <textarea class="input textarea" name="description"></textarea>
+                            <textarea class="input textarea" name="description" id="description"></textarea>
                         </div>
                     </div>
                 </div>
-        
+            
                 <hr class="modal-line">
-
+            
                 <div class="modal-footer">
-                    <button class="btn-cancel" onclick="closeModal('modal-create-credential')">Cancel</button>
-                    <button class="btn-save">Save</button>
+                    <button class="btn-cancel" type="button" onclick="closeModal('modal-create-credential')">Cancel</button>
+                    <button class="btn-save" id="createCredential" type="button">Save</button>
                 </div>
             </form>
 
