@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://crypt-keeper-production.up.railway.app',
+    'cryptkeeper.walisonribeiro.com',
 ]
 
 
