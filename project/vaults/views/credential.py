@@ -22,9 +22,20 @@ class CredentialView(View):
             if form.instance.description == '':
                 form.instance.description = None
 
-            form.save()
+            credential = form.save()
 
-            return JsonResponse({'status': 'success', 'message': 'credential created successfully'}, status=200)
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Credential created successfully',
+                'credential': {
+                    'id': credential.id,
+                    'name': credential.name,
+                    'username': credential.username,
+                    'password': credential.password,
+                    'url': credential.url,
+                    'description': credential.description
+                }
+            }, status=200)
         else:
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
         

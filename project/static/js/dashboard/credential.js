@@ -30,6 +30,35 @@ $(document).ready(function() {
                 "X-CSRFToken": getCookie("csrftoken"),
             },
             success: function(data) {
+                
+                $('#credential-table tbody').append(`
+                    <tr id="credential-${data.credential.id}">
+                        <td><img src="/static/icons/refresh.svg"></td>
+                        <td>
+                            <p class="nameTable" onclick="openModalViewCredential(
+                                ${data.credential.id},
+                                '${data.credential.name}',
+                                '${data.credential.username}',
+                                '${data.credential.password}',
+                                '${data.credential.url || ''}',
+                                '${data.credential.description || ''}'
+                            )">${data.credential.name}</p>
+                            <p class="usernameTable">${data.credential.username}</p>
+                        </td>
+                        <td>Me</td>
+                        <td>
+                            <div class="options-toggle">⋮</div>
+                            <div class="options-menu">
+                                <ul>
+                                    <li><a>Delete</a></li>
+                                    <li><a>Copy username</a></li>
+                                    <li><a>Copy password</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+
                 $('#form-create-credential').trigger('reset');
 
                 closeModal('modal-create-credential');
@@ -95,8 +124,10 @@ $(document).ready(function() {
 
         data['vault'] = vaultId;
 
+        id = $('#credentialId').val();
+
         $.ajax({
-            url: '/vaults/credential/' + $('#credentialId').val(),
+            url: '/vaults/credential/' + id,
             type: 'PUT',
             data: JSON.stringify(data),
             processData: false,
@@ -106,6 +137,33 @@ $(document).ready(function() {
                 "X-CSRFToken": getCookie("csrftoken"),
             },
             success: function(data) {
+                const updatedCredentialRow = `
+                    <td><img src="/static/icons/refresh.svg"></td>
+                    <td>
+                        <p class="nameTable" onclick="openModalViewCredential(
+                            '${id}',
+                            '${formData.get('name')}',
+                            '${formData.get('username')}',
+                            '${formData.get('password')}',
+                            '${formData.get('url')}',
+                            '${formData.get('description')}'
+                        )">${formData.get('name')}</p>
+                        <p class="usernameTable">${formData.get('username')}</p>
+                    </td>
+                    <td>Me</td>
+                    <td>
+                        <div class="options-toggle" onclick="toggleOptionsMenu(this)">⋮</div>
+                        <div class="options-menu">
+                            <ul>
+                                <li><a>Copy username</a></li>
+                                <li><a>Copy password</a></li>
+                                <li><a>Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                `;
+                $('#credential-' + id).html(updatedCredentialRow);
+
                 $('#form-view-credential').trigger('reset');
 
                 closeModal('modal-view-credential');
@@ -147,14 +205,18 @@ $(document).ready(function() {
     $('#deleteCredential').on('click', function(event) {
         event.preventDefault();
 
+        var id = $('#credentialId').val();
+
         $.ajax({
-            url: '/vaults/credential/' + $('#credentialId').val(),
+            url: '/vaults/credential/' + id,
             type: 'DELETE',
             headers: {
                 "X-Requested-With": "XMLHttpRequest",
                 "X-CSRFToken": getCookie("csrftoken"),
             },
             success: function(data) {
+                $('#credential-' + id).remove();
+
                 closeModal('modal-view-credential');
 
                 $('.alert-success').show();

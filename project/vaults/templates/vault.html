@@ -35,7 +35,7 @@
     </div>
 
     <div class="table-container">
-        <table class="table">
+        <table class="table" id="credential-table">
             <thead>
                 <tr>
                     <th></th>
@@ -46,7 +46,7 @@
             </thead>
             <tbody>
                 {% for credential in credentials %}
-                <tr>
+                <tr id="credential-{{ credential.id }}">
                     <td><img src="/static/icons/refresh.svg"></td>
                     <td>
                         <p class="nameTable" onclick="openModalViewCredential(
