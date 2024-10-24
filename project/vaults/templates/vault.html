@@ -31,79 +31,53 @@
     </h1>
 
     <div class="vault-menu">
-        
+       
     </div>
 
-    <table>
-        
-    </table>
-
-    <div id="modal-create-credential" class="modal-window">
-        <div class="modal-content">
-            <a href="#" title="Close" class="modal-close" onclick="closeModal('modal-create-credential')"></a>
-            <h3>Create credential</h3>
-            
-            <form id="createCredentialForm" method="POST" autocomplete="off">
-                {% csrf_token %}
-                <div>
-                    <div>
-                        <div class="form-input">
-                            <label for="name">Name <span>(required)</span></label>
-                            <input class="input" type="text" name="name" id="name">
-                            <div class="error" id="nameError"></div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Owner</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for credential in credentials %}
+                <tr>
+                    <td><img src="/static/icons/refresh.svg"></td>
+                    <td>
+                        <p class="nameTable" onclick="openModalViewCredential(
+                            '{{ credential.id }}',
+                            '{{ credential.name }}',
+                            '{{ credential.username }}',
+                            '{{ credential.password }}',
+                            `{{ credential.url|default_if_none:'' }}`,
+                            `{{ credential.description|default_if_none:'' }}`
+                        )
+                        ">{{ credential.name }}
+                        </p>
+                        <p class="usernameTable">{{ credential.username }}</p>
+                    </td>
+                    <td>Me</td>
+                    <td>
+                        <div class="options-toggle">⋮</div>
+                        <div class="options-menu">
+                            <ul>
+                                <li><a>Copy username</a></li>
+                                <li><a>Copy password</a></li>
+                                <li><a>Delete</a></li>
+                            </ul>
                         </div>
-                    </div>
-            
-                    <div class="between gap">
-                        <div class="form-input">
-                            <label for="username">Username <span>(required)</span></label>
-                            <input class="input" type="text" name="username" id="username">
-                            <div class="error" id="usernameError"></div>
-                        </div>
-                        <div class="form-input">
-                            <div class="between">
-                                <label for="password">Password <span>(required)</span></label>
-                                <a onclick="randomPassword(12, 'password')" style="cursor: pointer;">
-                                    <img src="/static/icons/refresh.svg">
-                                </a>
-                            </div>
-                            <div class="input-group">
-                                <input class="input" type="password" name="password" id="password" style="border-radius: 8px 0px 0px 8px;">
-                                <button onclick="seePassword('togglePassword', 'password')" type="button" class="input-btn" style="border-radius: 0px 0px 0px 0px;">
-                                    <img src="/static/icons/eye.svg" id="togglePassword">
-                                </button>
-                                <button onclick="copyInput('password', 'Text copied successfully!')" type="button" class="input-btn">
-                                    <img src="/static/icons/copy.svg">
-                                </button>
-                            </div>
-                            <div class="error" id="passwordError"></div>
-                        </div>
-                    </div>
-            
-                    <div>
-                        <div class="form-input">
-                            <label for="url">Url</label>
-                            <input class="input" type="text" name="url" id="url" placeholder="ex. https://google.com">
-                            <div class="error" id="urlError"></div>
-                        </div>
-                    </div>
-            
-                    <div>
-                        <div class="form-input">
-                            <label for="description">Description</label>
-                            <textarea class="input textarea" name="description" id="description"></textarea>
-                        </div>
-                    </div>
-                </div>
-            
-                <hr class="modal-line">
-            
-                <div class="modal-footer">
-                    <button class="btn-cancel" type="button" onclick="closeModal('modal-create-credential')">Cancel</button>
-                    <button class="btn-save" id="createCredential" type="button">Save</button>
-                </div>
-            </form>
-
-        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+        </table>
     </div>
+
+    {% include 'partials/view_credential_modal.html' %}
+
+    {% include 'partials/create_credential_modal.html' %}
 {% endblock %}

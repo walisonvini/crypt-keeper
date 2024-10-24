@@ -6,4 +6,7 @@ function openModal(modalId) {
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.style.display = 'none';
+
+    const form = modal.querySelector('form');
+    form.reset();
 }

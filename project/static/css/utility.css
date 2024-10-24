@@ -27,3 +27,7 @@
 .gap {
     gap: 20px;
 }
+
+.flex {
+    display: flex;
+}

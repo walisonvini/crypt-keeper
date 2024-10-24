@@ -43,6 +43,77 @@
     background-color: #e0e0e0;
 }
 
+.table td, .table th {
+    border: none;
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table img {
+    margin-right: 0px;
+}
+
+.table td:first-child {
+    padding-right: 0;
+    
+}
+
+.table td:nth-child(2) {
+    padding-left: 0;
+}
+
+.nameTable {
+    color: var(--secondary-color);
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.nameTable:hover {
+    text-decoration: underline;
+}
+
+.options-toggle {
+    cursor: pointer;
+    width: 20px;
+}
+
+.usernameTable {
+    font-size: 12px;
+    padding: 5px 0px 0px 0px;
+    color: #6d6c6c;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    width: 150px;
+}
+
+.options-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.options-menu li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.options-menu li a {
+    text-decoration: none;
+    color: black;
+}
+
+.options-menu li:hover {
+    background-color: #f0f0f0;
+}
 
 @media screen and (max-width: 540px) {
     .between {
