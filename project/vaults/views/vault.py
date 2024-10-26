@@ -9,6 +9,7 @@ from vaults.models import Vault
 from vaults.models import Credential
 
 from vaults.utils.encryption import decrypt
+from vaults.utils.icons import get_icon_path
 
 @method_decorator(login_required, name='dispatch')
 class VaultView(View):
@@ -39,5 +40,6 @@ class VaultView(View):
 
         for credential in credentials:
             credential.password = decrypt(credential.password)
+            credential.icon = get_icon_path(credential.url)
 
         return credentials

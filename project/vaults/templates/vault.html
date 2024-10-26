@@ -38,7 +38,6 @@
         <table class="table" id="credential-table">
             <thead>
                 <tr>
-                    <th></th>
                     <th>Name</th>
                     <th>Owner</th>
                     <th></th>
@@ -47,19 +46,23 @@
             <tbody>
                 {% for credential in credentials %}
                 <tr id="credential-{{ credential.id }}">
-                    <td><img src="/static/icons/refresh.svg"></td>
                     <td>
-                        <p class="nameTable" onclick="openModalViewCredential(
-                            '{{ credential.id }}',
-                            '{{ credential.name }}',
-                            '{{ credential.username }}',
-                            '{{ credential.password }}',
-                            `{{ credential.url|default_if_none:'' }}`,
-                            `{{ credential.description|default_if_none:'' }}`
-                        )
-                        ">{{ credential.name }}
-                        </p>
-                        <p class="usernameTable">{{ credential.username }}</p>
+                        <div class="flex">
+                            <img src="{{ credential.icon }}">
+                            <div>
+                                <p class="nameTable" onclick="openModalViewCredential(
+                                    '{{ credential.id }}',
+                                    '{{ credential.name }}',
+                                    '{{ credential.username }}',
+                                    '{{ credential.password }}',
+                                    `{{ credential.url|default_if_none:'' }}`,
+                                    `{{ credential.description|default_if_none:'' }}`
+                                    )
+                                    ">{{ credential.name }}
+                                </p>
+                                <p class="usernameTable">{{ credential.username }}</p>
+                            </div>
+                        </div>
                     </td>
                     <td>Me</td>
                     <td>

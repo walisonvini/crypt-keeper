@@ -6,7 +6,8 @@ from django.http import JsonResponse
 
 from vaults.models import Credential
 from vaults.forms import CredentialForm
-from ..utils.encryption import encrypt
+from ..utils.encryption import encrypt, decrypt
+from ..utils.icons import get_icon_path
 
 @method_decorator(login_required, name='dispatch')
 class CredentialView(View):
@@ -31,9 +32,10 @@ class CredentialView(View):
                     'id': credential.id,
                     'name': credential.name,
                     'username': credential.username,
-                    'password': credential.password,
+                    'password': decrypt(credential.password),
                     'url': credential.url,
-                    'description': credential.description
+                    'description': credential.description,
+                    'icon': get_icon_path(credential.url)
                 }
             }, status=200)
         else:
@@ -59,7 +61,19 @@ class CredentialView(View):
 
             credential.save()
 
-            return JsonResponse({'status': 'success', 'message': 'credential updated successfully'}, status=200)
+            return JsonResponse({
+                'status': 'success', 
+                'message': 'credential updated successfully',
+                'credential': {
+                    'id': credential.id,
+                    'name': credential.name,
+                    'username': credential.username,
+                    'password': decrypt(credential.password),
+                    'url': credential.url,
+                    'description': credential.description,
+                    'icon': get_icon_path(credential.url)
+                }
+            }, status=200)
         else:
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
         

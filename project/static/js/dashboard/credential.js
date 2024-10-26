@@ -31,33 +31,37 @@ $(document).ready(function() {
             },
             success: function(data) {
                 
-                $('#credential-table tbody').append(`
+                $('#credential-table tbody').prepend(`
                     <tr id="credential-${data.credential.id}">
-                        <td><img src="/static/icons/refresh.svg"></td>
                         <td>
-                            <p class="nameTable" onclick="openModalViewCredential(
-                                ${data.credential.id},
-                                '${data.credential.name}',
-                                '${data.credential.username}',
-                                '${data.credential.password}',
-                                '${data.credential.url || ''}',
-                                '${data.credential.description || ''}'
-                            )">${data.credential.name}</p>
-                            <p class="usernameTable">${data.credential.username}</p>
+                            <div class="flex">
+                                <img src="${data.credential.icon}"">
+                                <div>
+                                    <p class="nameTable" onclick="openModalViewCredential(
+                                        ${data.credential.id},
+                                        '${data.credential.name}',
+                                        '${data.credential.username}',
+                                        '${data.credential.password}',
+                                        '${data.credential.url || ''}',
+                                        '${data.credential.description || ''}'
+                                    )">${data.credential.name}</p>
+                                    <p class="usernameTable">${data.credential.username}</p>
+                                </div>
+                            </div>
                         </td>
                         <td>Me</td>
                         <td>
                             <div class="options-toggle">⋮</div>
                             <div class="options-menu">
                                 <ul>
-                                    <li><a>Delete</a></li>
-                                    <li><a>Copy username</a></li>
-                                    <li><a>Copy password</a></li>
+                                    <li><a href="#">Copy username</a></li>
+                                    <li><a href="#">Copy password</a></li>
+                                    <li><a href="#" onclick="deleteCredential(${data.credential.id})">Delete</a></li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                `);
+                `);                
 
                 $('#form-create-credential').trigger('reset');
 
@@ -138,17 +142,21 @@ $(document).ready(function() {
             },
             success: function(data) {
                 const updatedCredentialRow = `
-                    <td><img src="/static/icons/refresh.svg"></td>
                     <td>
-                        <p class="nameTable" onclick="openModalViewCredential(
-                            '${id}',
-                            '${formData.get('name')}',
-                            '${formData.get('username')}',
-                            '${formData.get('password')}',
-                            '${formData.get('url')}',
-                            '${formData.get('description')}'
-                        )">${formData.get('name')}</p>
-                        <p class="usernameTable">${formData.get('username')}</p>
+                        <div class="flex">
+                            <img src="${data.credential.icon}">
+                            <div>
+                                <p class="nameTable" onclick="openModalViewCredential(
+                                    '${id}',
+                                    '${data.credential.name}',
+                                    '${data.credential.username}',
+                                    '${data.credential.password}',
+                                    '${data.credential.url || ''}',
+                                    '${data.credential.description || ''}'
+                                )">${formData.get('name')}</p>
+                                <p class="usernameTable">${formData.get('username')}</p>
+                            </div>
+                        </div>
                     </td>
                     <td>Me</td>
                     <td>
@@ -157,7 +165,7 @@ $(document).ready(function() {
                             <ul>
                                 <li><a>Copy username</a></li>
                                 <li><a>Copy password</a></li>
-                                <li><a>Delete</a></li>
+                                <li><a onclick="deleteCredential(${id})">Delete</a></li>
                             </ul>
                         </div>
                     </td>
@@ -205,38 +213,50 @@ $(document).ready(function() {
     $('#deleteCredential').on('click', function(event) {
         event.preventDefault();
 
-        var id = $('#credentialId').val();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete this credential? This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id = $('#credentialId').val();
 
-        $.ajax({
-            url: '/vaults/credential/' + id,
-            type: 'DELETE',
-            headers: {
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRFToken": getCookie("csrftoken"),
-            },
-            success: function(data) {
-                $('#credential-' + id).remove();
-
-                closeModal('modal-view-credential');
-
-                $('.alert-success').show();
-                $('.alert-title').text(data.message);
-
-                setTimeout(function () {
-                    $('.alert-title').text('');
-                    $('.alert-success').hide();
-                }, 3000);
-            },
-            error: function(xhr, status, error) {
-                var response = JSON.parse(xhr.responseText);
-
-                $('.alert-success').show();
-                $('.alert-title').text(response.message);
-
-                setTimeout(function () {
-                    $('.alert-title').text('');
-                    $('.alert-success').hide();
-                }, 3000);
+                $.ajax({
+                    url: '/vaults/credential/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                    success: function(data) {
+                        $('#credential-' + id).remove();
+        
+                        closeModal('modal-view-credential');
+        
+                        $('.alert-success').show();
+                        $('.alert-title').text(data.message);
+        
+                        setTimeout(function () {
+                            $('.alert-title').text('');
+                            $('.alert-success').hide();
+                        }, 3000);
+                    },
+                    error: function(xhr, status, error) {
+                        var response = JSON.parse(xhr.responseText);
+        
+                        $('.alert-success').show();
+                        $('.alert-title').text(response.message);
+        
+                        setTimeout(function () {
+                            $('.alert-title').text('');
+                            $('.alert-success').hide();
+                        }, 3000);
+                    }
+                });
             }
         });
     });
@@ -268,6 +288,26 @@ function openModalViewCredential(id, name, username, password, url, description)
 function randomPassword(size, idInputPassword) {
     const inputPassword = document.getElementById(idInputPassword);
 
+    if (inputPassword.value) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to overwrite the current password?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                generatePassword(size, inputPassword);
+            }
+        });
+    } else {
+        generatePassword(size, inputPassword);
+    }
+}
+
+function generatePassword(size, inputPassword) {
     const caracteresEspeciais = '!@#$%^&*()';
     const letrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
     const letrasMaiusculas = letrasMinusculas.toUpperCase();
@@ -282,8 +322,9 @@ function randomPassword(size, idInputPassword) {
         password += caracteres.charAt(randomIndex);
     }
 
-    inputPassword.value = password
+    inputPassword.value = password;
 }
+
 
 function seePassword(eyeIcon, passwordInput) {
     const togglePassword = document.getElementById(eyeIcon);
