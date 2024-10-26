@@ -54,9 +54,10 @@ $(document).ready(function() {
                             <div class="options-toggle">⋮</div>
                             <div class="options-menu">
                                 <ul>
-                                    <li><a href="#">Copy username</a></li>
-                                    <li><a href="#">Copy password</a></li>
-                                    <li><a href="#" onclick="deleteCredential(${data.credential.id})">Delete</a></li>
+                                    <li><a onclick="copyText('${data.credential.username}')">Copy username</a></li>
+                                    <li><a onclick="copyText('${data.credential.password}')">Copy password</a></li>
+                                    ${data.credential.url ? `<li><a onclick="launchUrl('${data.credential.url}')">Launch</a></li>` : ''}
+                                    <li><a onclick="deleteCredential(${data.credential.id})">Delete</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -160,12 +161,13 @@ $(document).ready(function() {
                     </td>
                     <td>Me</td>
                     <td>
-                        <div class="options-toggle" onclick="toggleOptionsMenu(this)">⋮</div>
+                        <div class="options-toggle">⋮</div>
                         <div class="options-menu">
                             <ul>
-                                <li><a>Copy username</a></li>
-                                <li><a>Copy password</a></li>
-                                <li><a onclick="deleteCredential(${id})">Delete</a></li>
+                                <li><a onclick="copyText('${data.credential.username}')">Copy username</a></li>
+                                <li><a onclick="copyText('${data.credential.password}')">Copy password</a></li>
+                                ${data.credential.url ? `<li><a onclick="launchUrl('${data.credential.url}')">Launch</a></li>` : ''}
+                                <li><a onclick="deleteCredential(${data.credential.id})">Delete</a></li>
                             </ul>
                         </div>
                     </td>
@@ -213,60 +215,16 @@ $(document).ready(function() {
     $('#deleteCredential').on('click', function(event) {
         event.preventDefault();
 
-        Swal.fire({
-            title: "Are you sure?",
-            text: "Are you sure you want to delete this credential? This action cannot be undone.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var id = $('#credentialId').val();
+        var id = $('#credentialId').val();
 
-                $.ajax({
-                    url: '/vaults/credential/' + id,
-                    type: 'DELETE',
-                    headers: {
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRFToken": getCookie("csrftoken"),
-                    },
-                    success: function(data) {
-                        $('#credential-' + id).remove();
-        
-                        closeModal('modal-view-credential');
-        
-                        $('.alert-success').show();
-                        $('.alert-title').text(data.message);
-        
-                        setTimeout(function () {
-                            $('.alert-title').text('');
-                            $('.alert-success').hide();
-                        }, 3000);
-                    },
-                    error: function(xhr, status, error) {
-                        var response = JSON.parse(xhr.responseText);
-        
-                        $('.alert-success').show();
-                        $('.alert-title').text(response.message);
-        
-                        setTimeout(function () {
-                            $('.alert-title').text('');
-                            $('.alert-success').hide();
-                        }, 3000);
-                    }
-                });
-            }
-        });
+        deleteCredential(id);
     });
 
-    $('.options-toggle').on('click', function(event) {
+    $('#credential-table').on('click', '.options-toggle', function(event) {
         event.stopPropagation();
-
+    
         var $menu = $(this).next('.options-menu');
-
-        $menu.toggle();  
+        $menu.toggle();
     });
 
     $(document).on('click', function() {
@@ -340,8 +298,20 @@ function seePassword(eyeIcon, passwordInput) {
 function copyInput(idInputText, text) {
     const inputText = document.getElementById(idInputText).value;
 
+    if(!inputText) {
+        return;
+    }
+
     navigator.clipboard.writeText(inputText).then(() => {
         showAlert(text);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showAlert('Copied to clipboard');
     }).catch(err => {
         console.error('Failed to copy: ', err);
     });
@@ -358,4 +328,82 @@ function showAlert(message) {
     setTimeout(() => {
         alertBox.style.display = 'none';
     }, 3000);
+}
+
+function launch(input) {
+    const url = document.getElementById(input).value;
+
+    if(!url) {
+        return;
+    }
+
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        window
+            .open('http://' + url, '_blank')
+            .focus();
+    }
+
+    window.open(url, '_blank');
+}
+
+function launchUrl(url) {
+    if(!url) {
+        return;
+    }
+
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        window
+            .open('http://' + url, '_blank')
+            .focus();
+    }
+
+    window.open(url, '_blank');
+}
+
+function deleteCredential(id) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "Are you sure you want to delete this credential? This action cannot be undone.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '/vaults/credential/' + id,
+                type: 'DELETE',
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),
+                },
+                success: function(data) {
+                    $('#credential-' + id).remove();
+    
+                    closeModal('modal-view-credential');
+    
+                    $('.alert-success').show();
+                    $('.alert-title').text(data.message);
+    
+                    setTimeout(function () {
+                        $('.alert-title').text('');
+                        $('.alert-success').hide();
+                    }, 3000);
+                },
+                error: function(xhr, status, error) {
+                    var response = JSON.parse(xhr.responseText);
+    
+                    $('.alert-success').show();
+                    $('.alert-title').text(response.message);
+    
+                    setTimeout(function () {
+                        $('.alert-title').text('');
+                        $('.alert-success').hide();
+                    }, 3000);
+                }
+            });
+        }
+    });
 }

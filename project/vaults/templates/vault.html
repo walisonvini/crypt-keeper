@@ -69,10 +69,13 @@
                         <div class="options-toggle">⋮</div>
                         <div class="options-menu">
                             <ul>
-                                <li><a>Copy username</a></li>
-                                <li><a>Copy password</a></li>
-                                <li><a>Delete</a></li>
-                            </ul>
+                                <li onclick="copyText('{{ credential.username }}')"><a>Copy username</a></li>
+                                <li onclick="copyText('{{ credential.password }}')"><a>Copy password</a></li>
+                                {% if credential.url %}
+                                    <li onclick="launchUrl('{{ credential.url }}')"><a>Launch</a></li>
+                                {% endif %}
+                                <li onclick="deleteCredential('{{ credential.id }}')"><a>Delete</a></li>
+                            </ul>                            
                         </div>
                     </td>
                 </tr>
