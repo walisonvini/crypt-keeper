@@ -1,0 +1,38 @@
+
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block extra_head %}
+    
+{% endblock %}
+
+{% block extra_js %}
+    
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="between">
+        Create Vault
+    </h1>
+
+    <div class="form-container">
+        <form action="{% url 'vault_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group
+                {% if form.errors.name %}
+                    error
+                {% endif %}">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="{{ form.name.value }}">
+                {% if form.errors.name %}
+                    <span class="error">{{ form.errors.name.0 }}</span>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn">Create</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView
-from django.views import generic
+from django.views.generic import CreateView, RedirectView
 from django.urls import reverse_lazy
 
 from .forms import LoginForm, RegisterForm
@@ -13,7 +13,7 @@ class LoginView(LoginView):
         return super().form_valid(form)
 
 
-class RegisterView(generic.CreateView):
+class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'auth/register.html'
     success_url = reverse_lazy('login')
@@ -28,3 +28,13 @@ class RegisterView(generic.CreateView):
     def create_vault(self, user):
         vault = Vault(name='My Vault', user=user)
         vault.save()
+
+class LogoutView(RedirectView):
+    url = reverse_lazy('login')
+    permanent = False
+    query_string = True
+    pattern_name = 'login'
+
+    def get_redirect_url(self, *args, **kwargs):
+        self.request.session.flush()
+        return super().get_redirect_url(*args, **kwargs)

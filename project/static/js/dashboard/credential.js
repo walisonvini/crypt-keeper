@@ -13,7 +13,7 @@ $(document).ready(function() {
         $('#urlError').text('');
 
         var urlPath = window.location.pathname;
-        var vaultId = urlPath.match(/\/vault\/(\d+)/)[1];
+        var vaultId = urlPath.match(/\/vaults\/(\d+)/)[1];
 
         var formData = new FormData($('#form-create-credential')[0]);
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
         var formData = new FormData($('#form-view-credential')[0]);
 
         var urlPath = window.location.pathname;
-        var vaultId = urlPath.match(/\/vault\/(\d+)/)[1];
+        var vaultId = urlPath.match(/\/vaults\/(\d+)/)[1];
 
         var data = {};
 

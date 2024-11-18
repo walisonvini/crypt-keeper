@@ -1,0 +1,47 @@
+
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block extra_head %}
+    
+{% endblock %}
+
+{% block extra_js %}
+    
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="between">
+        Vaults
+        <button class="btn">New Vault</button>
+    </h1>
+
+    <div class="table-container">
+        <table class="table" id="credential-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Owner</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vault in vaults %}
+                <tr>
+                    <td>{{ vault.name }}</td>
+                    <td>Me</td>
+                    <td>{{ vault.created_at }}</td>
+                    <td>{{ vault.updated_at }}</td>
+                    <td>
+                        <img src="{% static 'icons/edit.svg' %}" alt="Update">
+                        <img src="{% static 'icons/trash.svg' %}" alt="Delete">
+                    </td>
+                </tr>
+                {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

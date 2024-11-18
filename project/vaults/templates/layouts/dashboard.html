@@ -25,7 +25,7 @@
                 <ul class="submenu">
                     {% for vault in vaults %}
                         <li>
-                            <a href="{% url 'vault' vault.id %}">{{ vault.name }}</a>
+                            <a href="{% url 'index' vault.id %}">{{ vault.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>

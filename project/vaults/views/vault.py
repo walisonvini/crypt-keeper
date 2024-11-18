@@ -1,45 +1,28 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from django.http import HttpResponse
+from django.views.generic import CreateView
 from django.shortcuts import render, redirect
-from django.core.exceptions import ObjectDoesNotExist
 
 from vaults.models import Vault
-from vaults.models import Credential
-
-from vaults.utils.encryption import decrypt
-from vaults.utils.icons import get_icon_path
+from vaults.forms import VaultForm
 
 @method_decorator(login_required, name='dispatch')
 class VaultView(View):
-    def get(self, request, vault_id=None):
-        user_id = request.user.id
-        vaults = Vault.objects.filter(user_id=user_id).order_by('-created_at')
-        user = request.user
+    def get(self, request):
+        vaults = request.user.vaults.all().order_by('-created_at')
 
-        credentials = self.get_credentials(vault_id, user_id)
-        
-        if vault_id is None:
-            newest_vault = vaults.first()
-            return redirect('vault', vault_id=newest_vault.id)
+        return render(request, 'vault/index.html', {'vaults': vaults})
 
-        try:
-            vault = Vault.objects.get(id=vault_id, user_id=user_id)
-        except ObjectDoesNotExist:
-            newest_vault = vaults.first()
-            return redirect('vault', vault_id=newest_vault.id)
+@method_decorator(login_required, name='dispatch')
+class VaultCreateView(CreateView):
+    model = Vault
+    form_class = VaultForm
+    template_name = 'vault/create.html'
 
-        return render(request, 'vault.html', {'vaults': vaults, 'user': user, 'vault': vault, 'credentials': credentials})
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    def post(self, request):
-        return HttpResponse('Vault created')
-    
-    def get_credentials(self, vault_id, user_id):
-        credentials = Credential.objects.filter(vault_id=vault_id, user_id=user_id).order_by('-created_at')
-
-        for credential in credentials:
-            credential.password = decrypt(credential.password)
-            credential.icon = get_icon_path(credential.url)
-
-        return credentials
+    def get_success_url(self):
+        return redirect('vault')
