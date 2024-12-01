@@ -16,6 +16,9 @@ class IndexView(View):
         user_id = request.user.id
         vaults = request.user.vaults.all().order_by('-created_at')
         user = request.user
+        password_settings = user.password_settings
+
+        print(password_settings)
 
         credentials = self.get_credentials(vault_id, user_id)
         
@@ -29,7 +32,7 @@ class IndexView(View):
             newest_vault = vaults.first()
             return redirect('index', vault_id=newest_vault.id)
 
-        return render(request, 'index.html', {'vaults': vaults, 'user': user, 'vault': vault, 'credentials': credentials})
+        return render(request, 'index.html', {'vaults': vaults, 'user': user, 'vault': vault, 'credentials': credentials, 'password_settings': password_settings})
     
     def get_credentials(self, vault_id, user_id):
         credentials = Credential.objects.filter(vault_id=vault_id, user_id=user_id).order_by('-created_at')

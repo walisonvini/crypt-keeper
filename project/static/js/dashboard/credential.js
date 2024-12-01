@@ -243,7 +243,7 @@ function openModalViewCredential(id, name, username, password, url, description)
     $('#description-view').val(description);
 }
 
-function randomPassword(size, idInputPassword) {
+function randomPassword(size, includeSpecialCharacters, includeLowercase, includeUppercase, includeNumbers, idInputPassword) {
     const inputPassword = document.getElementById(idInputPassword);
 
     if (inputPassword.value) {
@@ -257,27 +257,49 @@ function randomPassword(size, idInputPassword) {
             confirmButtonText: "Yes"
         }).then((result) => {
             if (result.isConfirmed) {
-                generatePassword(size, inputPassword);
+                generatePassword(size, includeSpecialCharacters, includeLowercase, includeUppercase, includeNumbers, inputPassword);
             }
         });
     } else {
-        generatePassword(size, inputPassword);
+        generatePassword(size, includeSpecialCharacters, includeLowercase, includeUppercase, includeNumbers, inputPassword);
     }
 }
 
-function generatePassword(size, inputPassword) {
-    const caracteresEspeciais = '!@#$%^&*()';
-    const letrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
-    const letrasMaiusculas = letrasMinusculas.toUpperCase();
-    const numeros = '0123456789';
+function generatePassword(size, includeSpecialCharacters, includeLowercase, includeUppercase, includeNumbers, inputPassword) {
+    const specialCharacters = '!@#$%^&*()';
+    const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+    const uppercaseLetters = lowercaseLetters.toUpperCase();
+    const numbers = '0123456789';
 
-    const caracteres = caracteresEspeciais + letrasMinusculas + letrasMaiusculas + numeros;
+    includeSpecialCharacters = includeSpecialCharacters === "True" || includeSpecialCharacters === true;
+    includeLowercase = includeLowercase === "True" || includeLowercase === true;
+    includeUppercase = includeUppercase === "True" || includeUppercase === true;
+    includeNumbers = includeNumbers === "True" || includeNumbers === true;
+
+    let characters = '';
+
+    if (includeSpecialCharacters) {
+        characters += specialCharacters;
+    }
+    if (includeLowercase) {
+        characters += lowercaseLetters;
+    }
+    if (includeUppercase) {
+        characters += uppercaseLetters;
+    }
+    if (includeNumbers) {
+        characters += numbers;
+    }
+
+    if (characters.length === 0) {
+        characters += lowercaseLetters;
+    }
 
     let password = '';
 
     for (let i = 0; i < size; i++) {
-        const randomIndex = Math.floor(Math.random() * caracteres.length);
-        password += caracteres.charAt(randomIndex);
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters.charAt(randomIndex);
     }
 
     inputPassword.value = password;
