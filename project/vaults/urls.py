@@ -2,6 +2,7 @@ from django.urls import path, include
 from .views.index import IndexView
 from .views.credential import CredentialView
 from .views.vault import VaultListView, VaultCreateView, VaultUpdateView, VaultDeleteView
+from .views.passwordSettings import PasswordSettingsView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -14,4 +15,6 @@ urlpatterns = [
 
     path('credential', CredentialView.as_view(), name='credential'),
     path('credential/<int:id>', CredentialView.as_view(), name='credential'),
+
+    path('passowrd-settings', PasswordSettingsView.as_view(), name='password_settings'),
 ]
