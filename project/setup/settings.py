@@ -155,3 +155,8 @@ AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
 
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/vaults'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+SESSION_COOKIE_AGE = 60 * 5
+SESSION_SAVE_EVERY_REQUEST = True

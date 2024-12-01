@@ -29,23 +29,30 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </div>            
+            </div>
+            <a href="{% url 'vault_list' %}">
+                <img src="{% static 'icons/vault_setting.svg' %}" alt="">
+                <span class="page-name">Vaults Setting</span>
+            </a>       
             <a href="#">
                 <img src="{% static 'icons/password-setting.svg' %}" alt="">
                 <span class="page-name">Password Setting</span>
             </a>
-            <a href="#">
-                <img src="{% static 'icons/folders.svg' %}" alt="">
-                <span class="page-name">Folders</span>
-            </a>
+            <div class="sidebar-footer">
+                <div class="divider"></div>
+                <a href="">
+                    <img src="{% static 'icons/account.svg' %}" alt="">
+                    <span class="page-name">Account Settings</span>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <img src="{% static 'icons/logout.svg' %}" alt="">
+                    <span class="page-name">Logout</span>
+                </a>
+            </div>
         </div>
         <div class="app">
             <header class="navbar bg-white">
-                <div class="profile">
-                    <div class="avatar">
-                        WA
-                    </div>
-                </div>
+                <span> {{ user.name }} </span>
             </header>
             <div class="content">
                 {% block content %}

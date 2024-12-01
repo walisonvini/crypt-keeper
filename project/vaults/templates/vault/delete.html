@@ -1,0 +1,38 @@
+
+{% extends 'layouts/dashboard.html' %}
+{% load static %}
+
+{% block extra_head %}
+    
+{% endblock %}
+
+{% block extra_js %}
+    
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="between">
+        Delete Vault - {{ vault.name }}
+    </h1>
+
+    <div style="margin-top: 24px;"></div>
+    <h3>Are you sure you want to delete the Vault?</h3>
+    <p><strong>Note:</strong> All credentials associated with this Vault will be deleted as well.</p>
+
+    <div class="form-container">
+        <form action="{% url 'vault_delete' pk=vault.pk %}" method="POST">
+            {% csrf_token %}
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn btn-delete">Yes, delete</button>
+                    <a href="{% url 'vault_list' %}">
+                        <button type="button" class="btn btn-cancel">Cancel</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        
+    </div>
+
+{% endblock %}

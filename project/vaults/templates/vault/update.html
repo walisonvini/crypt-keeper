@@ -13,11 +13,11 @@
 
 {% block content %}
     <h1 class="between">
-        Create Vault
+        Update Vault - {{ vault.name }}
     </h1>
 
     <div class="form-container">
-        <form action="{% url 'vault_create' %}" method="POST">
+        <form action="{% url 'vault_edit' pk=vault.pk %}" method="POST">
             {% csrf_token %}
             <div style="width: 350px; max-width: 90vw;">
                 <div class="form-input">
@@ -32,7 +32,7 @@
                     {% endif %}
                 </div>
                 <div style="margin-top: 24px;">
-                    <button type="submit" class="btn">Create</button>
+                    <button type="submit" class="btn">Save</button>
                 </div>
             </div>
         </form>
