@@ -13,6 +13,9 @@ class VaultListView(ListView):
     context_object_name = 'vaults'
     ordering = ['-created_at']
 
+    def get_queryset(self):
+        return Vault.objects.filter(user=self.request.user)
+
 @method_decorator(login_required, name='dispatch')
 class VaultCreateView(CreateView):
     model = Vault

@@ -3,7 +3,7 @@ from django.views.generic import CreateView, RedirectView
 from django.urls import reverse_lazy
 
 from .forms import LoginForm, RegisterForm
-from vaults.models import Vault
+from vaults.models import Vault, PasswordSettings
 
 class LoginView(LoginView):
     form_class = LoginForm
@@ -22,12 +22,17 @@ class RegisterView(CreateView):
         user = form.save()
 
         self.create_vault(user)
+        self.create_password_settings(user)
 
         return super().form_valid(form)
 
     def create_vault(self, user):
         vault = Vault(name='My Vault', user=user)
         vault.save()
+
+    def create_password_settings(self, user):
+        password_settings = PasswordSettings(user=user)
+        password_settings.save()
 
 class LogoutView(RedirectView):
     url = reverse_lazy('login')
