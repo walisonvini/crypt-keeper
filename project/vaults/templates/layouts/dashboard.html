@@ -18,33 +18,33 @@
                 Cryptkepper
             </div>
             <div class="menu-item">
-                <a class="menu-toggle {% if request.resolver_match.view_name == 'vault' %}active{% endif %}">
+                <a class="menu-toggle {% if request.resolver_match.view_name == 'vault' or request.resolver_match.view_name == 'index' %}active{% endif %}">
                     <img src="{% static 'icons/vault.svg' %}" alt="">
                     <span class="page-name">Vaults <img src="{% static 'icons/arrow.svg' %}" class="arrow-icon" alt=""></span>
                 </a>
                 <ul class="submenu">
                     {% for vault in vaults %}
                         <li>
-                            <a href="{% url 'index' vault.id %}">{{ vault.name }}</a>
+                            <a href="{% url 'index' vault.id %}" {% if request.resolver_match.view_name == 'index' and vault.id == current_vault.id %}class="active"{% endif %}>{{ vault.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
-            <a href="{% url 'vault_list' %}">
+            <a href="{% url 'vault_list' %}" {% if request.resolver_match.view_name == 'vault_list' %}class="active"{% endif %}>
                 <img src="{% static 'icons/vault_setting.svg' %}" alt="">
                 <span class="page-name">Vaults Setting</span>
             </a>       
-            <a href="{% url 'password_settings' %}">
+            <a href="{% url 'password_settings' %}" {% if request.resolver_match.view_name == 'password_settings' %}class="active"{% endif %}>
                 <img src="{% static 'icons/password-setting.svg' %}" alt="">
                 <span class="page-name">Password Setting</span>
             </a>
             <div class="sidebar-footer">
                 <div class="divider"></div>
-                <a href="">
+                <a href="" {% if request.resolver_match.view_name == 'account_settings' %}class="active"{% endif %}>
                     <img src="{% static 'icons/account.svg' %}" alt="">
                     <span class="page-name">Account Settings</span>
                 </a>
-                <a href="{% url 'logout' %}">
+                <a href="{% url 'logout' %}" {% if request.resolver_match.view_name == 'logout' %}class="active"{% endif %}>
                     <img src="{% static 'icons/logout.svg' %}" alt="">
                     <span class="page-name">Logout</span>
                 </a>
@@ -52,7 +52,11 @@
         </div>
         <div class="app">
             <header class="navbar bg-white">
-                <span> {{ user.name }} </span>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </header>
             <div class="content">
                 {% block content %}
