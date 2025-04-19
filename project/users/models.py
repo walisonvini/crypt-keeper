@@ -4,7 +4,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=150)
-    password_hit = models.CharField(max_length=150, blank=True, null=True)
+    password_hint = models.CharField(max_length=150, blank=True, null=True)
 
     first_name = None 
     last_name = None

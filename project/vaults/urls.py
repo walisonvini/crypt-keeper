@@ -3,7 +3,7 @@ from .views.index import IndexView
 from .views.credential import CredentialView
 from .views.vault import VaultListView, VaultCreateView, VaultUpdateView, VaultDeleteView
 from .views.passwordSettings import PasswordSettingsView
-
+from .views.accountSettings import AccountSettingsView
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('<int:vault_id>', IndexView.as_view(), name='index'),
@@ -17,4 +17,5 @@ urlpatterns = [
     path('credential/<int:id>', CredentialView.as_view(), name='credential'),
 
     path('passowrd-settings', PasswordSettingsView.as_view(), name='password_settings'),
+    path('account-settings', AccountSettingsView.as_view(), name='account_settings'),
 ]

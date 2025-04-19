@@ -91,12 +91,12 @@
                 </div>
 
                 <div class="form-input">
-                    <label for="password_hit">Password hint</label>
-                    <input class="input {% if form.password_hit.errors %}input-error{% endif %}" 
-                            type="text" name="password_hit" id="password_hit" 
+                    <label for="password_hint">Password hint</label>
+                    <input class="input {% if form.password_hint.errors %}input-error{% endif %}" 
+                            type="text" name="password_hint" id="password_hint" 
                             placeholder="">
-                    {% if form.password_hit.errors %}
-                        {% for error in form.password_hit.errors %}
+                    {% if form.password_hint.errors %}
+                        {% for error in form.password_hint.errors %}
                             <div class="error">{{ error }}</div>
                         {% endfor %}
                     {% endif %}

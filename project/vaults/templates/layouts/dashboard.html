@@ -40,11 +40,11 @@
             </a>
             <div class="sidebar-footer">
                 <div class="divider"></div>
-                <a href="" {% if request.resolver_match.view_name == 'account_settings' %}class="active"{% endif %}>
+                <a href="{% url 'account_settings' %}" {% if request.resolver_match.view_name == 'account_settings' %}class="active"{% endif %}>
                     <img src="{% static 'icons/account.svg' %}" alt="">
                     <span class="page-name">Account Settings</span>
                 </a>
-                <a href="{% url 'logout' %}" {% if request.resolver_match.view_name == 'logout' %}class="active"{% endif %}>
+                <a href="{% url 'logout' %}">
                     <img src="{% static 'icons/logout.svg' %}" alt="">
                     <span class="page-name">Logout</span>
                 </a>
