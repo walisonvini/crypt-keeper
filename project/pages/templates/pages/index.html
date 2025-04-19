@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptkeeper - Secure Password Management</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="{% url 'index' %}" class="logo">Cryptkeeper</a>
+                <div class="nav-links">
+                    <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Secure Your Passwords with Cryptkeeper</h1>
+                    <p class="hero-subtitle">
+                        Store and manage your passwords securely in one place. 
+                        Our advanced encryption ensures your data stays protected.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{% static 'img/vault-bro.svg' %}" alt="Cryptkeeper Security">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Cryptkeeper?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="{% static 'img/vault.svg' %}" alt="Secure Vault" class="feature-icon">
+                    <h3 class="feature-title">Secure Vault</h3>
+                    <p class="feature-description">
+                        Your passwords are stored in an encrypted vault, protected by industry-standard security measures.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <img src="{% static 'img/password.svg' %}" alt="Password Management" class="feature-icon">
+                    <h3 class="feature-title">Password Management</h3>
+                    <p class="feature-description">
+                        Easily manage all your passwords in one place with our intuitive interface.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <img src="{% static 'img/password2.svg' %}" alt="Password Generator" class="feature-icon">
+                    <h3 class="feature-title">Password Generator</h3>
+                    <p class="feature-description">
+                        Create strong, unique passwords with our built-in password generator.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Create an Account</h3>
+                    <p class="step-description">
+                        Sign up for a Cryptkeeper account to get started with secure password management.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Create Your Vault</h3>
+                    <p class="step-description">
+                        Set up your personal vault to store and organize your passwords securely.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Add Your Passwords</h3>
+                    <p class="step-description">
+                        Start adding your passwords to your vault and let Cryptkeeper handle the security.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Cryptkeeper</div>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 202 Cryptkeeper. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
