@@ -1,4 +1,3 @@
-
 {% extends 'layouts/dashboard.html' %}
 {% load static %}
 
@@ -75,8 +74,27 @@
                     </td>
                 </tr>
                 {% endfor %}
+            </tbody>
         </table>
     </div>
+
+    {% if credentials.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if credentials.has_previous %}
+            <a href="?page=1" class="pagination-link">&laquo; First</a>
+            <a href="?page={{ credentials.previous_page_number }}" class="pagination-link">Previous</a>
+        {% endif %}
+
+        <span class="pagination-current">
+            Page {{ credentials.number }} of {{ credentials.paginator.num_pages }}
+        </span>
+
+        {% if credentials.has_next %}
+            <a href="?page={{ credentials.next_page_number }}" class="pagination-link">Next</a>
+            <a href="?page={{ credentials.paginator.num_pages }}" class="pagination-link">Last &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
 
     {% include 'partials/view_credential_modal.html' %}
 

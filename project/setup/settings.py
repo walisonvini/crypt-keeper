@@ -158,5 +158,5 @@ LOGIN_REDIRECT_URL = '/vaults'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-SESSION_COOKIE_AGE = 60 * 5
+SESSION_COOKIE_AGE = 60 * 20
 SESSION_SAVE_EVERY_REQUEST = True
