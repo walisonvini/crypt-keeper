@@ -14,7 +14,7 @@ class VaultListView(ListView):
     ordering = ['-created_at']
 
     def get_queryset(self):
-        return Vault.objects.filter(user=self.request.user)
+        return Vault.objects.filter(user=self.request.user).order_by('name')
 
 @method_decorator(login_required, name='dispatch')
 class VaultCreateView(CreateView):
@@ -25,7 +25,7 @@ class VaultCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['vaults'] = Vault.objects.filter(user=self.request.user)
+        context['vaults'] = Vault.objects.filter(user=self.request.user).order_by('name')
 
         return context
 
@@ -46,7 +46,7 @@ class VaultUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['vaults'] = Vault.objects.filter(user=self.request.user)
+        context['vaults'] = Vault.objects.filter(user=self.request.user).order_by('name')
 
         return context
 
@@ -66,7 +66,7 @@ class VaultDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['vaults'] = Vault.objects.filter(user=self.request.user)
+        context['vaults'] = Vault.objects.filter(user=self.request.user).order_by('name')
 
         return context
 

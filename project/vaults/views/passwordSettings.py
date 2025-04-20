@@ -12,7 +12,7 @@ class PasswordSettingsView(View):
     def get(self, request):
         password_settings = PasswordSettings.objects.get(user=request.user)
         form = PasswordSettingsForm(instance=password_settings)
-        vaults = request.user.vaults.all()
+        vaults = request.user.vaults.all().order_by('name')
         return render(request, 'password_settings.html', {'password_settings': password_settings, 'form': form, 'vaults': vaults})
 
     def post(self, request):
@@ -22,5 +22,5 @@ class PasswordSettingsView(View):
             form.save()
             messages.success(request, 'Password settings updated successfully.')
             return redirect('password_settings')
-        vaults = request.user.vaults.all()
+        vaults = request.user.vaults.all().order_by('name')
         return render(request, 'password_settings.html', {'password_settings': password_settings, 'vaults': vaults})

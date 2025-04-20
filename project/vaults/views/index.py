@@ -15,7 +15,7 @@ from vaults.utils.icons import get_icon_path
 class IndexView(View):
     def get(self, request, vault_id=None):
         user_id = request.user.id
-        vaults = request.user.vaults.all().order_by('-created_at')
+        vaults = request.user.vaults.all().order_by('name')
         user = request.user
         password_settings = user.password_settings
 

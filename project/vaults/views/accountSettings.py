@@ -11,7 +11,7 @@ from vaults.forms import AccountSettingsForm
 class AccountSettingsView(View):
     def get(self, request):
         form = AccountSettingsForm(instance=request.user)
-        vaults = request.user.vaults.all()
+        vaults = request.user.vaults.all().order_by('name')
         return render(request, 'account_settings.html', {'form': form, 'vaults': vaults})
 
     def post(self, request):
