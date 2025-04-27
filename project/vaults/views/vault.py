@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.shortcuts import redirect
+from django.core.exceptions import PermissionDenied
 
 from vaults.models import Vault
 
@@ -70,6 +72,21 @@ class VaultDeleteView(DeleteView):
 
         return context
 
-    def delete(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        vault_count = Vault.objects.filter(user=request.user).count()
+        
+        if vault_count <= 1:
+            messages.error(request, "You cannot delete your only vault. You must have at least one vault.")
+            return redirect('vault_list')
+        
+        return super().get(request, *args, **kwargs)
 
-        return super().delete(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        vault_count = Vault.objects.filter(user=request.user).count()
+        
+        if vault_count <= 1:
+            messages.error(request, "You cannot delete your only vault. You must have at least one vault.")
+            return redirect('vault_list')
+
+        messages.success(request, self.success_message)
+        return super().post(request, *args, **kwargs)
