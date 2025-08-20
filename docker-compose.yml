@@ -1,0 +1,51 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    container_name: cryptkeeper_web
+    env_file:
+      - .env
+    volumes:
+      - ./static:/app/static
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - cryptkeeper
+
+  db:
+    image: postgres:15
+    container_name: cryptkeeper_db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - cryptkeeper
+
+  nginx:
+    image: nginx:stable
+    container_name: cryptkeeper_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./static:/app/static
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - cryptkeeper
+
+networks:
+  cryptkeeper:
+
+volumes:
+  db_data:

@@ -4,7 +4,7 @@ cryptography==43.0.1
 Django==5.0.7
 gunicorn==23.0.0
 packaging==24.1
-psycopg2==2.9.9
+psycopg[binary]==3.2.9
 pycparser==2.22
 python-dotenv==1.0.1
 sqlparse==0.5.1
