@@ -45,12 +45,22 @@ CryptKeeper is a password management application developed for the "Rapid Applic
     docker exec -it cryptkeeper_web bash
     ```
 
-6. Run migrations
+6. Generate cryptographic key:
+    ```bash
+    python generate_cryptography_key.py
+    ```
+
+7. Generate secret key:
+    ```bash
+    python generate_secret_key.py
+    ```
+
+8. Run migrations
     ```bash
     python manage.py migrate
     ```
 
-7. Access the application
+9. Access the application
     ```bash
     # Open your browser and navigate to:
     http://localhost
