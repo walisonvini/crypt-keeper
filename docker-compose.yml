@@ -38,6 +38,7 @@ services:
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./static:/app/static
+      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - web
     restart: always
