@@ -37,6 +37,7 @@ services:
       - "443:443"
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/certs:/etc/nginx/certs:ro
       - ./static:/app/static
     depends_on:
       - web
