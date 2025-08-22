@@ -61,10 +61,8 @@ CryptKeeper is a password management application developed for the "Rapid Applic
     ```
 
 9. Access the application
-    ```bash
-    # Open your browser and navigate to:
-    [http://127.0.0.1:8000](http://127.0.0.1:8000)
-    ```
+
+   Open [http://127.0.0.1:8000](http://127.0.0.1:8000) with your browser to see the result
 
 ## ⚙️ Installation without Docker
 
@@ -89,10 +87,6 @@ Generate cryptographic key:
 python generate_cryptography_key.py
 ```
 
-> ⚠️ **CRITICAL WARNING** ⚠️
-> 
-> **Do not change the cryptographic key once it is generated!** Changing the key will make previously encrypted data inaccessible, as the encryption is dependent on the key. If you absolutely need to change the key, you must decrypt all the stored data with the old key and re-encrypt it with the new key before applying the change.
-
 Generate secret key:
 ```bash
 python generate_secret_key.py
@@ -109,3 +103,7 @@ python manage.py runserver
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) with your browser to see the result
+
+> ⚠️ **CRITICAL WARNING** ⚠️
+> 
+> **Do not change the cryptographic key once it is generated!** Changing the key will make previously encrypted data inaccessible, as the encryption is dependent on the key. If you absolutely need to change the key, you must decrypt all the stored data with the old key and re-encrypt it with the new key before applying the change.
