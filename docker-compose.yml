@@ -6,8 +6,6 @@ services:
     container_name: cryptkeeper_web
     env_file:
       - .env
-    volumes:
-      - ./static:/app/static
     depends_on:
       - db
     restart: always
