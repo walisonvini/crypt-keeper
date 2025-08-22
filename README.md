@@ -32,12 +32,12 @@ CryptKeeper is a password management application developed for the "Rapid Applic
 
 3. Build Docker images
     ```bash
-    docker-compose build
+    docker compose build
     ```
 
 4. Start containers
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
 5. Access the application container
@@ -63,7 +63,7 @@ CryptKeeper is a password management application developed for the "Rapid Applic
 9. Access the application
     ```bash
     # Open your browser and navigate to:
-    http://localhost
+    [http://127.0.0.1:8000](http://127.0.0.1:8000)
     ```
 
 ## ⚙️ Installation without Docker

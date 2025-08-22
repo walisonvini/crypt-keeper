@@ -35,21 +35,6 @@ services:
     networks:
       - cryptkeeper
 
-  nginx:
-    image: nginx:stable
-    container_name: cryptkeeper_nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./static:/app/static
-    depends_on:
-      - web
-    restart: always
-    networks:
-      - cryptkeeper
-
 networks:
   cryptkeeper:
 
